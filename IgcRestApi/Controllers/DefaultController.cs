@@ -1,24 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using IgcRestApi.Dto;
+using IgcRestApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using IgcRestApi.Dto;
 
 namespace IgcRestApi.Controllers
 {
     [ApiController]
+    [Route("")]
     [Route("[controller]")]
     public class DefaultController : ControllerBase
     {
         
 
         private readonly ILogger<DefaultController> _logger;
+        private readonly IConfigurationService _configuration;
 
-        public DefaultController(ILogger<DefaultController> logger)
+        public DefaultController(ILogger<DefaultController> logger, IConfigurationService configuration)
         {
             _logger = logger;
+            _configuration = configuration;
+
+            var ftp = _configuration.FtpNetcoupeIgcHost;
+            _logger.LogDebug(ftp);
+            
         }
 
         [HttpGet]

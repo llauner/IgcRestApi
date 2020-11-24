@@ -417,6 +417,15 @@
           "lib/netstandard1.0/Newtonsoft.Json.dll": {}
         }
       },
+      "NFluent/2.7.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NFluent.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NFluent.dll": {}
+        }
+      },
       "NuGet.Frameworks/5.0.0": {
         "type": "package",
         "compile": {
@@ -1225,6 +1234,31 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "DotIGC/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/DotIGC.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DotIGC.dll": {}
+        }
+      },
+      "IgcRestApi/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "DotIGC": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/IgcRestApi.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IgcRestApi.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -1831,6 +1865,39 @@
         "newtonsoft.json.9.0.1.nupkg.sha512",
         "newtonsoft.json.nuspec",
         "tools/install.ps1"
+      ]
+    },
+    "NFluent/2.7.0": {
+      "sha512": "gmlrLkv2dC3FcnFWgvUb+hjd1790PKnGp8Xzar+QlADHAEmaW+GlLz5qDTstJTN20Noy59HtEsIahyjYQ6ocvg==",
+      "type": "package",
+      "path": "nfluent/2.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "images/Icon.png",
+        "lib/net20/NFluent.dll",
+        "lib/net20/NFluent.pdb",
+        "lib/net20/NFluent.xml",
+        "lib/net30/NFluent.dll",
+        "lib/net30/NFluent.pdb",
+        "lib/net30/NFluent.xml",
+        "lib/net35/NFluent.XML",
+        "lib/net35/NFluent.dll",
+        "lib/net35/NFluent.pdb",
+        "lib/net40/NFluent.XML",
+        "lib/net40/NFluent.dll",
+        "lib/net40/NFluent.pdb",
+        "lib/net45/NFluent.dll",
+        "lib/net45/NFluent.pdb",
+        "lib/net45/NFluent.xml",
+        "lib/netstandard1.3/NFluent.dll",
+        "lib/netstandard1.3/NFluent.pdb",
+        "lib/netstandard1.3/NFluent.xml",
+        "lib/netstandard2.0/NFluent.dll",
+        "lib/netstandard2.0/NFluent.pdb",
+        "lib/netstandard2.0/NFluent.xml",
+        "nfluent.2.7.0.nupkg.sha512",
+        "nfluent.nuspec"
       ]
     },
     "NuGet.Frameworks/5.0.0": {
@@ -4618,11 +4685,23 @@
         "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "DotIGC/1.0.0": {
+      "type": "project",
+      "path": "../../DotIGC/DotIGC/DotIGC.csproj",
+      "msbuildProject": "../../DotIGC/DotIGC/DotIGC.csproj"
+    },
+    "IgcRestApi/1.0.0": {
+      "type": "project",
+      "path": "../IgcRestApi/IgcRestApi.csproj",
+      "msbuildProject": "../IgcRestApi/IgcRestApi.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "IgcRestApi >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 16.4.0",
+      "NFluent >= 2.7.0",
       "NUnit3TestAdapter >= 3.15.1",
       "nunit >= 3.12.0"
     ]
@@ -4633,11 +4712,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\llauner\\src\\IgcRestApi\\IgcRestApi.UnitTests\\IgcRestApi.UnitTests.csproj",
+      "projectUniqueName": "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\IgcRestApi.UnitTests.csproj",
       "projectName": "IgcRestApi.UnitTests",
-      "projectPath": "D:\\llauner\\src\\IgcRestApi\\IgcRestApi.UnitTests\\IgcRestApi.UnitTests.csproj",
+      "projectPath": "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\IgcRestApi.UnitTests.csproj",
       "packagesPath": "C:\\Users\\a790562\\.nuget\\packages\\",
-      "outputPath": "D:\\llauner\\src\\IgcRestApi\\IgcRestApi.UnitTests\\obj\\",
+      "outputPath": "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\a790562\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4652,7 +4731,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\IgcRestApi.csproj": {
+              "projectPath": "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\IgcRestApi.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -4667,6 +4750,10 @@
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
             "version": "[16.4.0, )"
+          },
+          "NFluent": {
+            "target": "Package",
+            "version": "[2.7.0, )"
           },
           "NUnit3TestAdapter": {
             "target": "Package",

@@ -1,3 +1,6 @@
 IgcRestApi/obj/
 IgcRestApi/bin/
 .vs/
+IgcRestApi.UnitTests/bin/
+IgcRestApi.UnitTests/obj/
+IgcRestApi/appsettings.json
