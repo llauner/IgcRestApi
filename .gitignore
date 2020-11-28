@@ -4,3 +4,5 @@ IgcRestApi/bin/
 IgcRestApi.UnitTests/bin/
 IgcRestApi.UnitTests/obj/
 IgcRestApi/appsettings.json
+Aggregator/bin/
+Aggregator/obj/

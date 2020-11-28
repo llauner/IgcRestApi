@@ -23,6 +23,12 @@ namespace IgcRestApi
 
             // ----- Register dependencies -----
             services.AddSingleton<IConfigurationService, ConfigurationService>();
+            services.AddSingleton<IFirestoreService, FirestoreService>();
+            services.AddSingleton<IFtpService, FtpService>();
+            services.AddSingleton<IStorageService, StorageService>();
+            services.AddSingleton<IIgcReaderService, IgcReaderService>();
+            services.AddSingleton<IAggregatorService, AggregatorService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
