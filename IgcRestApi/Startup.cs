@@ -1,3 +1,4 @@
+using IgcRestApi.DataConversion;
 using IgcRestApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,12 +24,13 @@ namespace IgcRestApi
 
             // ----- Register dependencies -----
             services.AddSingleton<IConfigurationService, ConfigurationService>();
-            services.AddSingleton<IFirestoreService, FirestoreService>();
-            services.AddSingleton<IFtpService, FtpService>();
-            services.AddSingleton<IStorageService, StorageService>();
-            services.AddSingleton<IIgcReaderService, IgcReaderService>();
-            services.AddSingleton<IAggregatorService, AggregatorService>();
-
+            services.AddTransient<IDataConverter, AutoMapperDataConverter>();
+            services.AddTransient<IFirestoreService, FirestoreService>();
+            services.AddTransient<IFtpService, FtpService>();
+            services.AddTransient<IStorageService, StorageService>();
+            services.AddTransient<IIgcReaderService, IgcReaderService>();
+            services.AddTransient<IAggregatorService, AggregatorService>();
+            services.AddTransient<INetcoupeService, NetcoupeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

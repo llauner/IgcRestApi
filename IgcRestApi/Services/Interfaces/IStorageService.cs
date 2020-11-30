@@ -10,5 +10,7 @@ namespace IgcRestApi.Services
         /// <param name="objectName"></param>
         /// <param name="inStream"></param>
         void UploadToBucket(string objectName, Stream inStream);
+
+        void DeleteFileAsync(string filename);
     }
 }

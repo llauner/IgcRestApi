@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using IgcRestApi.Dto;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Threading.Tasks;
 
 namespace IgcRestApi.Services
 {
@@ -13,13 +15,15 @@ namespace IgcRestApi.Services
         private readonly IFirestoreService _firestoreService;
         private readonly IStorageService _storageService;
         private readonly IIgcReaderService _igcReaderService;
+        private readonly INetcoupeService _netcoupeService;
 
         public AggregatorService(ILoggerFactory loggerFactory,
             IConfigurationService configuration,
             IFtpService ftpService,
             IFirestoreService fireStoreService,
             IStorageService storageService,
-            IIgcReaderService igcReaderService)
+            IIgcReaderService igcReaderService,
+            INetcoupeService netcoupeService)
         {
             _logger = loggerFactory.CreateLogger<AggregatorService>();
             _configuration = configuration;
@@ -27,14 +31,16 @@ namespace IgcRestApi.Services
             _firestoreService = fireStoreService;
             _storageService = storageService;
             _igcReaderService = igcReaderService;
+            _netcoupeService = netcoupeService;
         }
 
 
         /// <summary>
-        /// Run
+        /// RunAsync
         /// Entry point for the igc extraction and storage
         /// </summary>
-        public void Run()
+        public async void
+            RunAsync()
         {
             var lastProcessedFilename = _firestoreService.GetLastProcessedFile();
             var filesList = _ftpService.GetFileList();
@@ -52,19 +58,19 @@ namespace IgcRestApi.Services
             {
                 _logger.LogInformation($"Dealing with: {f.Name}");
 
-                // --- Get file from FTP
+                // --- Get file from FTP ---
                 var fileStream = _ftpService.DownloadFile(f.Name);
                 fileStream.Seek(0, SeekOrigin.Begin);
 
-                // --- Unzip stream file content into stream
+                // --- Unzip stream file content into stream ---
                 var archive = new ZipArchive(fileStream);
                 var igcFile = archive.Entries[0];
                 var unzippedStream = igcFile.Open();
 
-                // --- Retrieve flight date
+                // --- Retrieve flight date ---
                 var isProcessingDone = false;
                 var targetFolderName = "";
-                using (var igcStream = igcFile.Open())
+                await using (var igcStream = igcFile.Open())
                 {
                     try
                     {
@@ -88,7 +94,7 @@ namespace IgcRestApi.Services
                     _storageService.UploadToBucket(targetFolderName + igcFile.Name, unzippedStream);
                 }
 
-                // --- Store progress
+                // --- Store progress ---
                 totalProcessedItemCount++;
                 processedItemCount++;
                 if (processedItemCount >= _configuration.StoreProgressInterval)
@@ -111,8 +117,26 @@ namespace IgcRestApi.Services
             }
             // --- Store last processed file progress
             _firestoreService.UpdateLastProcessedFile(lastProcessedFileName);
+        }
 
 
+        /// <summary>
+        /// DeleteFlight
+        /// </summary>
+        /// <param name="flightNumber"></param>
+        public async Task<IgcFlightDto> DeleteFlight(int flightNumber)
+        {
+            var filename = _netcoupeService.GetIgcFileNameById(flightNumber);
+            _storageService.DeleteFileAsync(filename);
+
+
+            var flightInfo = new IgcFlightDto()
+            {
+                Name = "",
+                Status = FlightStatus.DELETED
+            };
+
+            return flightInfo;
         }
 
 

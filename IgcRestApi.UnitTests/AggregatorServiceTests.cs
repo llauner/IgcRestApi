@@ -1,4 +1,5 @@
 ﻿using IgcRestApi.Services;
+using Moq;
 using NFluent;
 using NUnit.Framework;
 
@@ -10,6 +11,7 @@ namespace IgcRestApi.UnitTests
         private IFtpService _ftpService;
         private IStorageService _storageService;
         private IIgcReaderService _igcReaderService;
+        private readonly Mock<INetcoupeService> _netcoupeServiceMock = new Mock<INetcoupeService>();
 
 
         public AggregatorServiceTests()
@@ -21,7 +23,7 @@ namespace IgcRestApi.UnitTests
         {
             _firestoreService = new FirestoreService(ConfigurationService);
             _ftpService = new FtpService(ConfigurationService);
-            _storageService = new StorageService(ConfigurationService);
+            _storageService = new StorageService(UnitTestLoggerFactory, ConfigurationService);
             _igcReaderService = new IgcReaderService();
 
         }
@@ -33,10 +35,16 @@ namespace IgcRestApi.UnitTests
 
         {
             // Arrange
-            var aggregatorService = new AggregatorService(UnitTestLoggerFactory, ConfigurationService, _ftpService, _firestoreService, _storageService, _igcReaderService);
+            var aggregatorService = new AggregatorService(UnitTestLoggerFactory,
+                                                            ConfigurationService,
+                                                            _ftpService,
+                                                            _firestoreService,
+                                                            _storageService,
+                                                            _igcReaderService,
+                                                            _netcoupeServiceMock.Object);
 
             // Act
-            aggregatorService.Run();
+            aggregatorService.RunAsync();
 
             // Assert
             Check.That(true);

@@ -40,7 +40,7 @@ namespace Aggregator
             var aggregatorService = new AggregatorService(UnitTestLoggerFactory, ConfigurationService, _ftpService, _firestoreService, _storageService, _igcReaderService);
 
             // Act
-            aggregatorService.Run();
+            aggregatorService.RunAsync();
 
             // Assert
 

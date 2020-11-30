@@ -2,6 +2,7 @@
 using IgcRestApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace IgcRestApi.Controllers
 {
@@ -24,11 +25,28 @@ namespace IgcRestApi.Controllers
             _aggregatorService = aggregatorService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public PingResponse Get()
         {
-            _aggregatorService.Run();
+            _aggregatorService.RunAsync();
             return new PingResponse("IgcRestApi");
         }
+
+
+        /// <summary>
+        /// DeleteFlight
+        /// </summary>
+        [HttpDelete("{flightNumber}")]
+        public async Task<IgcFlightDto> DeleteFlight(int flightNumber)
+        {
+            var igcFlightDto = await _aggregatorService.DeleteFlight(flightNumber);
+
+            return igcFlightDto;
+        }
+
     }
 }
