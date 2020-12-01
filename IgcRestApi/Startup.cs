@@ -1,4 +1,6 @@
+using AutoMapper;
 using IgcRestApi.DataConversion;
+using IgcRestApi.Extensions;
 using IgcRestApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +24,8 @@ namespace IgcRestApi
         {
             services.AddControllers();
 
+            services.AddAutoMapper(typeof(Startup).Assembly);  // Registering and Initializing AutoMapper
+
             // ----- Register dependencies -----
             services.AddSingleton<IConfigurationService, ConfigurationService>();
             services.AddTransient<IDataConverter, AutoMapperDataConverter>();
@@ -40,6 +44,7 @@ namespace IgcRestApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.ConfigureExceptionHandler();    // Use Extensions/ExceptionMiddleWareExtensions.cs
 
             app.UseHttpsRedirection();
 

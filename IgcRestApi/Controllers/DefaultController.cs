@@ -1,7 +1,9 @@
 ﻿using IgcRestApi.Dto;
+using IgcRestApi.Exceptions;
 using IgcRestApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace IgcRestApi.Controllers
@@ -32,7 +34,7 @@ namespace IgcRestApi.Controllers
         [HttpGet]
         public PingResponse Get()
         {
-            _aggregatorService.RunAsync();
+            //_aggregatorService.RunAsync();
             return new PingResponse("IgcRestApi");
         }
 
@@ -43,9 +45,19 @@ namespace IgcRestApi.Controllers
         [HttpDelete("{flightNumber}")]
         public async Task<IgcFlightDto> DeleteFlight(int flightNumber)
         {
-            var igcFlightDto = await _aggregatorService.DeleteFlight(flightNumber);
+            //var igcFlightDto = await _aggregatorService.DeleteFlight(flightNumber);
 
-            return igcFlightDto;
+            throw new CoreApiException(HttpStatusCode.NotFound, $"Cannot find flight with flightNumber={flightNumber}");
+
+            //if (igcFlightDto == null)
+            //{
+            //    return null;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
+
         }
 
     }

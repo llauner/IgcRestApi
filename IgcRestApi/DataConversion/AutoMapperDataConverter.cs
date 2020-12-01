@@ -1,5 +1,5 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
+using System;
 
 namespace IgcRestApi.DataConversion
 {
@@ -35,6 +35,18 @@ namespace IgcRestApi.DataConversion
         public TDest ConvertAndMerge<TDest>(object src, object destination) where TDest : class
         {
             return _mapper.Map(src, destination, src.GetType(), destination.GetType()) as TDest;
+        }
+
+
+        /// <summary>
+        /// GetDataConverter
+        /// </summary>
+        /// <returns></returns>
+        public static IDataConverter GetDataConverter()
+        {
+            var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile<IgcRestApiMappingProfile>());
+            var mapper = mapperConfiguration.CreateMapper();
+            return new AutoMapperDataConverter(mapper);
         }
     }
 }

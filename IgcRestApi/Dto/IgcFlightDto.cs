@@ -1,6 +1,6 @@
 ﻿namespace IgcRestApi.Dto
 {
-    public class IgcFlightDto
+    public class IgcFlightDto : BaseDto<IgcFlightDto>
     {
         public int Id { get; set; }             // Netcoupe Id
         public string Name { get; set; }            // IGC file name inside Zip file

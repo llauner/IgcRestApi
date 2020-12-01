@@ -8,6 +8,7 @@
 	<ProjectCapability Include="DynamicDependentFile" />
 	<ProjectCapability Include="DynamicFileNesting" />
 	<PackageReference Include="AutoMapper" Version="10.1.1" />
+	<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
 	<PackageReference Include="FluentFTP" Version="33.0.2" />
 	<PackageReference Include="Google.Cloud.Firestore" Version="2.3.0" />
 	<PackageReference Include="Google.Cloud.Storage.V1" Version="3.3.0" />
@@ -15,10 +16,6 @@
 
   <ItemGroup>
 	<ProjectReference Include="..\..\DotIGC\DotIGC\DotIGC.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
   </ItemGroup>
 
 
