@@ -4,7 +4,6 @@ using IgcRestApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using System.Net;
 
 namespace IgcRestApi.Extensions
 {
@@ -23,24 +22,13 @@ namespace IgcRestApi.Extensions
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        CoreApiExceptionModel coreApiExceptionModel = null;
+                        var coreApiExceptionModel = dataConverter.Convert<CoreApiExceptionModel>(contextFeature.Error);
 
                         if (contextFeature.Error is CoreApiException coreApiException)
                         {
                             context.Response.StatusCode = (int)coreApiException.StatusCode;
-                            coreApiExceptionModel = dataConverter.Convert<CoreApiExceptionModel>(coreApiException);
-                        }
-                        else
-                        {
-                            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                            coreApiExceptionModel = new CoreApiExceptionModel()
-                            {
-                                StatusCode = HttpStatusCode.InternalServerError,
-                                Message = contextFeature.Error.Message
-                            };
 
                         }
-
 
                         await context.Response.WriteAsync(coreApiExceptionModel.ToString());
 
