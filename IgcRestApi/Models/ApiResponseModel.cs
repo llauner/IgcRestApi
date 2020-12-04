@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Net;
 
 namespace IgcRestApi.Models
@@ -6,7 +7,11 @@ namespace IgcRestApi.Models
     public class ApiResponseModel
     {
         public object Result { get; }
+
         public HttpStatusCode StatusCode { get; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public HttpStatusCode HttpStatusCode => StatusCode;
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Message { get; }

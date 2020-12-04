@@ -1,4 +1,5 @@
 using AutoMapper;
+using IgcRestApi.Common.Helper;
 using IgcRestApi.DataConversion;
 using IgcRestApi.Extensions;
 using IgcRestApi.Services;
@@ -22,7 +23,8 @@ namespace IgcRestApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options => JsonHelper.GetJsonSerializerSettings());
 
             services.AddAutoMapper(typeof(Startup).Assembly);  // Registering and Initializing AutoMapper
 

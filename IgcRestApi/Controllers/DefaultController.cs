@@ -57,15 +57,6 @@ namespace IgcRestApi.Controllers
 
             return Ok(new ApiResponseModel(HttpStatusCode.OK, igcFlightModel));
 
-            //if (igcFlightDto == null)
-            //{
-            //    return null;
-            //}
-            //else
-            //{
-            //    return null;
-            //}
-
         }
 
     }
