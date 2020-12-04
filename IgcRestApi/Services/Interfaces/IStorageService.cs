@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 
 namespace IgcRestApi.Services
 {
@@ -11,6 +12,6 @@ namespace IgcRestApi.Services
         /// <param name="inStream"></param>
         void UploadToBucket(string objectName, Stream inStream);
 
-        void DeleteFileAsync(string filename);
+        Task DeleteFileAsync(string filename);
     }
 }

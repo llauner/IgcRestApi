@@ -49,5 +49,7 @@ namespace IgcRestApi.Dto
                 throw new CoreJsonException($"Serialize exception: {e.Message}", e);
             }
         }
+
+
     }
 }

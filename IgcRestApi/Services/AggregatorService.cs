@@ -1,8 +1,10 @@
 ﻿using IgcRestApi.Dto;
+using IgcRestApi.Exceptions;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace IgcRestApi.Services
@@ -127,12 +129,21 @@ namespace IgcRestApi.Services
         public async Task<IgcFlightDto> DeleteFlight(int flightNumber)
         {
             var filename = _netcoupeService.GetIgcFileNameById(flightNumber);
-            _storageService.DeleteFileAsync(filename);
+
+            try
+            {
+                await _storageService.DeleteFileAsync(filename);
+            }
+            catch (FileNotFoundException e)
+            {
+                throw new CoreApiException(HttpStatusCode.NotFound, e.Message);
+            }
 
 
             var flightInfo = new IgcFlightDto()
             {
-                Name = "",
+                Id = flightNumber,
+                Name = filename,
                 Status = FlightStatus.DELETED
             };
 

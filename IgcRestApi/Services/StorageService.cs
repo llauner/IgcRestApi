@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace IgcRestApi.Services
 {
@@ -34,7 +35,7 @@ namespace IgcRestApi.Services
         /// DeleteFileAsync
         /// </summary>
         /// <param name="filename"></param>
-        public async void DeleteFileAsync(string filename)
+        public async Task DeleteFileAsync(string filename)
         {
             var enumerable = _storageClient.ListObjects(_configuration.StorageBucketName);
             var list = enumerable.ToList();

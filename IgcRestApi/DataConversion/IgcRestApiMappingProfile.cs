@@ -30,6 +30,10 @@ namespace IgcRestApi.DataConversion
                 .ForMember(to => to.DateTime, opt => opt.MapFrom(src => DateTime.Now))
                 .ForMember(to => to.StatusCode, opt => opt.MapFrom(src => HttpStatusCode.InternalServerError))
                 ;
+
+            // Dto -> Model
+            CreateMap<IgcFlightDto, IgcFlightModel>()
+                .ReverseMap();
         }
 
 
