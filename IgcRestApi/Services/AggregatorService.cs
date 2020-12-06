@@ -2,6 +2,7 @@
 using IgcRestApi.Exceptions;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
@@ -41,8 +42,7 @@ namespace IgcRestApi.Services
         /// RunAsync
         /// Entry point for the igc extraction and storage
         /// </summary>
-        public async void
-            RunAsync()
+        public async Task<IList<string>> RunAsync(int? maxFilesTpProcess = null)
         {
             var lastProcessedFilename = _firestoreService.GetLastProcessedFile();
             var filesList = _ftpService.GetFileList();
@@ -53,6 +53,7 @@ namespace IgcRestApi.Services
                 int.Parse(Path.GetFileNameWithoutExtension(lastProcessedFilename)));
 
             // #### Process files ###
+            var processedFilesList = new List<string>();
             var processedItemCount = 0;                 // Keep track of processed items # so that we can regularly store the progress
             var totalProcessedItemCount = 0;
             string lastProcessedFileName = null;
@@ -87,13 +88,13 @@ namespace IgcRestApi.Services
                         _logger.LogDebug($"Could not extract header from file:{e.Message}");
                         isProcessingDone = false;
                     }
-
                 }
 
                 if (isProcessingDone)
                 {
                     // --- Store into a GCP bucket
                     _storageService.UploadToBucket(targetFolderName + igcFile.Name, unzippedStream);
+                    processedFilesList.Add(f.Name);
                 }
 
                 // --- Store progress ---
@@ -108,25 +109,27 @@ namespace IgcRestApi.Services
 
                 // Clean up
                 unzippedStream.Close();
-                unzippedStream.Dispose();
+                await unzippedStream.DisposeAsync();
                 fileStream.Close();
-                fileStream.Dispose();
+                await fileStream.DisposeAsync();
 
-                if (totalProcessedItemCount == 100)
+                if (maxFilesTpProcess != null && totalProcessedItemCount == maxFilesTpProcess)
                 {
                     break;
                 }
             }
             // --- Store last processed file progress
             _firestoreService.UpdateLastProcessedFile(lastProcessedFileName);
+
+            return processedFilesList;
         }
 
 
         /// <summary>
-        /// DeleteFlight
+        /// DeleteFlightAsync
         /// </summary>
         /// <param name="flightNumber"></param>
-        public async Task<IgcFlightDto> DeleteFlight(int flightNumber)
+        public async Task<IgcFlightDto> DeleteFlightAsync(int flightNumber)
         {
             var filename = _netcoupeService.GetIgcFileNameById(flightNumber);
 

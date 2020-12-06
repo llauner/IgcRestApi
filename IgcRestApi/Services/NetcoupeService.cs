@@ -6,7 +6,6 @@ namespace IgcRestApi.Services
     public class NetcoupeService : INetcoupeService
     {
         private static readonly string _netcoupeFileName = "Netcoupe{0}_{1}.igc";
-        private static readonly string IgcSuffix = ".igc";
 
         /// <summary>
         /// GetIgcFileNameById
@@ -16,7 +15,7 @@ namespace IgcRestApi.Services
         /// <returns></returns>
         public string GetIgcFileNameById(int netcoupeFlightId, int? currentYear = null)
         {
-            currentYear = (currentYear == null) ? DateTime.Now.Year : currentYear;
+            currentYear ??= DateTime.Now.Year;
             var netcoupeIgcFilename = string.Format(_netcoupeFileName, currentYear, netcoupeFlightId);
 
             return netcoupeIgcFilename;

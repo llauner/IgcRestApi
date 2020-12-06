@@ -1,4 +1,5 @@
 ﻿using IgcRestApi.Dto;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IgcRestApi.Services
@@ -9,8 +10,8 @@ namespace IgcRestApi.Services
         /// RunAsync
         /// Entry point for the igc extraction and storage
         /// </summary>
-        void RunAsync();
+        Task<IList<string>> RunAsync(int? maxFilesTpProcess = null);
 
-        Task<IgcFlightDto> DeleteFlight(int flightNumber);
+        Task<IgcFlightDto> DeleteFlightAsync(int flightNumber);
     }
 }
