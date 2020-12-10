@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "default",
+      "launchUrl": "netcoupe/ping",
       "environmentVariables": {
         "GOOGLE_APPLICATION_CREDENTIALS": "D:\\llauner\\GoogleCloud_Credentials\\Service_Account_Key-igcheatmap-f012be117f9c.json",
         "ASPNETCORE_ENVIRONMENT": "Development"

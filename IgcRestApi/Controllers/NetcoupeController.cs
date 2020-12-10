@@ -14,16 +14,16 @@ namespace IgcRestApi.Controllers
     [ApiController]
     [Route("")]
     [Route("[controller]")]
-    public class DefaultController : ControllerBase
+    public class NetcoupeController : ControllerBase
     {
-        private readonly ILogger<DefaultController> _logger;
+        private readonly ILogger<NetcoupeController> _logger;
         private readonly IConfigurationService _configuration;
         private readonly IDataConverter _dataConverter;
         private readonly IAggregatorService _aggregatorService;
         private readonly IStorageService _storageService;
 
 
-        public DefaultController(ILogger<DefaultController> logger,
+        public NetcoupeController(ILogger<NetcoupeController> logger,
                                 IConfigurationService configuration,
                                 IDataConverter dataConverter,
                                 IAggregatorService aggregatorService,
@@ -40,7 +40,7 @@ namespace IgcRestApi.Controllers
         /// Ping
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("ping")]
         public PingResponse Ping()
         {
             return new PingResponse("IgcRestApi");
@@ -68,9 +68,9 @@ namespace IgcRestApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> GetNetcoupeFlightsFromFtpAsync()
+        public async Task<IActionResult> GetNetcoupeFlightsFromFtpAsync([FromQuery(Name = "limit")] int? limit)
         {
-            var processedFilesList = await _aggregatorService.RunAsync(10);
+            var processedFilesList = await _aggregatorService.RunAsync(limit);
 
             return Ok(new ApiResponseModel(HttpStatusCode.OK, processedFilesList));
         }
@@ -92,7 +92,7 @@ namespace IgcRestApi.Controllers
         /// <summary>
         /// DeleteFlightAsync
         /// </summary>
-        [HttpDelete("{flightNumber}")]
+        [HttpDelete("flights/{flightNumber}")]
         public async Task<IActionResult> DeleteFlightAsync(int flightNumber)
         {
             var igcFlightDto = await _aggregatorService.DeleteFlightAsync(flightNumber);
