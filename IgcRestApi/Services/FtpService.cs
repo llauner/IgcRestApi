@@ -18,7 +18,7 @@ namespace IgcRestApi.Services
 
 
         /// <summary>
-        /// GetFileList
+        /// GetFilenameList
         /// </summary>
         /// <returns></returns>
         public List<FtpListItem> GetFileList()

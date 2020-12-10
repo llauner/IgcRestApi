@@ -1,5 +1,6 @@
 ﻿using Google.Cloud.Storage.V1;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,6 +50,20 @@ namespace IgcRestApi.Services
             }
 
             await _storageClient.DeleteObjectAsync(_configuration.StorageBucketName, fileFullPath.Name);
+        }
+
+
+        /// <summary>
+        /// GetFilenameList
+        /// </summary>
+        /// <returns></returns>
+        public IList<string> GetFilenameList()
+        {
+            var enumerable = _storageClient.ListObjects(_configuration.StorageBucketName);
+            var list = enumerable.ToList();
+            var filenameList = list.Select(o => o.Name).ToList();
+
+            return filenameList;
         }
 
 

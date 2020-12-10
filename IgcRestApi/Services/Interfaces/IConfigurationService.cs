@@ -14,5 +14,8 @@
 
 
         string StorageBucketName { get; }
+
+        string ApiDefaultLogin { get; }
+        string ApiDefaultPassword { get; }
     }
 }

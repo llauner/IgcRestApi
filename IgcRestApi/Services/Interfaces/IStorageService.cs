@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace IgcRestApi.Services
@@ -13,5 +14,6 @@ namespace IgcRestApi.Services
         void UploadToBucket(string objectName, Stream inStream);
 
         Task DeleteFileAsync(string filename);
+        IList<string> GetFilenameList();
     }
 }

@@ -19,6 +19,12 @@ namespace IgcRestApi.Services
         // ########## Storage Bucket ##########
         public string StorageBucketName => GetSetting("StorageBucketName", "netcoupe-igc-" + DateTime.Now.Year);
 
+
+        // ######### Default Credentials #########
+        public string ApiDefaultLogin => GetSetting<string>("ApiDefaultLogin", null);
+        public string ApiDefaultPassword => GetSetting<string>("ApiDefaultPassword", null);
+
+
         #region Configuration Service
         private readonly IConfiguration _configuration;
 

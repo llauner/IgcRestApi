@@ -1,13 +1,18 @@
 using AutoMapper;
 using IgcRestApi.Common.Helper;
 using IgcRestApi.DataConversion;
+using IgcRestApi.Dto;
 using IgcRestApi.Extensions;
 using IgcRestApi.Services;
+using IgcRestApi.Services.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace IgcRestApi
 {
@@ -26,6 +31,27 @@ namespace IgcRestApi
             services.AddControllers()
                 .AddNewtonsoftJson(options => JsonHelper.GetJsonSerializerSettings());
 
+            var token = Configuration.GetSection("tokenManagement").Get<TokenManagementDto>();
+            services.AddSingleton(token);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = true;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = token.Issuer,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(token.Secret)),
+                    ValidAudience = token.Audience,
+                    ValidateAudience = false
+                };
+            });
+
             services.AddAutoMapper(typeof(Startup).Assembly);  // Registering and Initializing AutoMapper
 
             // ----- Register dependencies -----
@@ -37,6 +63,7 @@ namespace IgcRestApi
             services.AddTransient<IIgcReaderService, IgcReaderService>();
             services.AddTransient<IAggregatorService, AggregatorService>();
             services.AddTransient<INetcoupeService, NetcoupeService>();
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +78,7 @@ namespace IgcRestApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
