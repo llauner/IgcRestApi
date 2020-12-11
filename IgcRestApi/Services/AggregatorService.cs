@@ -49,7 +49,7 @@ namespace IgcRestApi.Services
 
             // Remove files already processed from list
             filesList.RemoveAll(o =>
-                int.Parse(Path.GetFileNameWithoutExtension(o.Name)) <=
+                int.Parse(Path.GetFileNameWithoutExtension(o)) <=
                 int.Parse(Path.GetFileNameWithoutExtension(lastProcessedFilename)));
 
             // #### Process files ###
@@ -59,10 +59,10 @@ namespace IgcRestApi.Services
             string lastProcessedFileName = null;
             foreach (var f in filesList)
             {
-                _logger.LogInformation($"Dealing with: {f.Name}");
+                _logger.LogInformation($"Dealing with: {f}");
 
                 // --- Get file from FTP ---
-                var fileStream = _ftpService.DownloadFile(f.Name);
+                var fileStream = _ftpService.DownloadFile(f);
                 fileStream.Seek(0, SeekOrigin.Begin);
 
                 // --- Unzip stream file content into stream ---
@@ -80,7 +80,7 @@ namespace IgcRestApi.Services
                         var igcHeader = _igcReaderService.GetHeaderFromStream(igcStream);
                         targetFolderName = igcHeader.Date.ToString("yyyy_MM_dd") + "/";
                         isProcessingDone = true;
-                        lastProcessedFileName = f.Name;
+                        lastProcessedFileName = f;
                         igcStream.Close();
                     }
                     catch (Exception e)
@@ -94,7 +94,7 @@ namespace IgcRestApi.Services
                 {
                     // --- Store into a GCP bucket
                     _storageService.UploadToBucket(targetFolderName + igcFile.Name, unzippedStream);
-                    processedFilesList.Add(f.Name);
+                    processedFilesList.Add(f);
                 }
 
                 // --- Store progress ---
@@ -103,7 +103,7 @@ namespace IgcRestApi.Services
                 if (processedItemCount >= _configuration.StoreProgressInterval)
                 {
                     // Store progress in GCP Firestore so that we don't go over all files next time
-                    _firestoreService.UpdateLastProcessedFile(f.Name);
+                    _firestoreService.UpdateLastProcessedFile(f);
                     processedItemCount = 0;
                 }
 

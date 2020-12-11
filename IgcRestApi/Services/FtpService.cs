@@ -21,15 +21,17 @@ namespace IgcRestApi.Services
         /// GetFilenameList
         /// </summary>
         /// <returns></returns>
-        public List<FtpListItem> GetFileList()
+        public List<string> GetFileList()
         {
             InitClient();
-            var fileList = _client.GetListing("/");
+            var ftpListItemList = _client.GetListing("/");
 
             // Sort list by Alphabetical order on the file name
-            var sortedFileList = fileList.OrderBy(f => f.Name.Length).ThenBy(f => f.Name).ToList();
+            var sortedFileList = ftpListItemList.OrderBy(f => f.Name.Length).ThenBy(f => f.Name).ToList();
 
-            return sortedFileList;
+            var fileList = sortedFileList.Select(i => i.Name).ToList();      // Keep name only
+
+            return fileList;
         }
 
         /// <summary>

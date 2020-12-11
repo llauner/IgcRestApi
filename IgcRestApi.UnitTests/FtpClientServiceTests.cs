@@ -31,8 +31,8 @@ namespace IgcRestApi.UnitTests
             if (fileList.Count >= 2)
                 for (int i = 0; i < fileList.Count - 2; i++)
                 {
-                    var current = fileList[i].Name;
-                    var next = fileList[i + 1].Name;
+                    var current = fileList[i];
+                    var next = fileList[i + 1];
 
                     var currentValue = int.Parse(Path.GetFileNameWithoutExtension(current));
                     var nextValue = int.Parse(Path.GetFileNameWithoutExtension(next));
