@@ -1,4 +1,5 @@
 ﻿using IgcRestApi.Services;
+using IgcRestApi.Services.Interfaces;
 using Moq;
 using NFluent;
 using NUnit.Framework;

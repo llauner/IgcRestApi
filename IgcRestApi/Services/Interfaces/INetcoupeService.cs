@@ -1,4 +1,4 @@
-﻿namespace IgcRestApi.Services
+﻿namespace IgcRestApi.Services.Interfaces
 {
     public interface INetcoupeService
     {

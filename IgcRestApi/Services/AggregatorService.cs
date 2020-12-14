@@ -7,6 +7,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Threading.Tasks;
+using IgcRestApi.Services.Interfaces;
 
 namespace IgcRestApi.Services
 {
