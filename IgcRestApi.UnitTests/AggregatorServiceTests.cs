@@ -8,7 +8,7 @@ namespace IgcRestApi.UnitTests
 {
     class AggregatorServiceTests : BaseUnitTest
     {
-        private IFirestoreService _firestoreService;
+        private IFirestoreNetcoupeExtractorService _firestoreNetcoupeExtractorService;
         private IFtpService _ftpService;
         private IStorageService _storageService;
         private IIgcReaderService _igcReaderService;
@@ -22,7 +22,7 @@ namespace IgcRestApi.UnitTests
         [OneTimeSetUp]
         public void Setup()
         {
-            _firestoreService = new FirestoreService(ConfigurationService);
+            _firestoreNetcoupeExtractorService = new FirestoreNetcoupeExtractorNetcoupeExtractorService(ConfigurationService);
             _ftpService = new FtpService(ConfigurationService);
             _storageService = new StorageService(UnitTestLoggerFactory, ConfigurationService);
             _igcReaderService = new IgcReaderService();
@@ -39,7 +39,7 @@ namespace IgcRestApi.UnitTests
             var aggregatorService = new AggregatorService(UnitTestLoggerFactory,
                                                             ConfigurationService,
                                                             _ftpService,
-                                                            _firestoreService,
+                                                            _firestoreNetcoupeExtractorService,
                                                             _storageService,
                                                             _igcReaderService,
                                                             _netcoupeServiceMock.Object);

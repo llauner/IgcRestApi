@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace IgcRestApi.Services
+namespace IgcRestApi.Services.Interfaces
 {
     public interface IStorageService
     {

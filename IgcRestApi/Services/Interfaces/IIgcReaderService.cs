@@ -1,7 +1,7 @@
-﻿using System.IO;
-using DotIGC;
+﻿using DotIGC;
+using System.IO;
 
-namespace IgcRestApi.Services
+namespace IgcRestApi.Services.Interfaces
 {
     public interface IIgcReaderService
     {

@@ -16,7 +16,7 @@ namespace IgcRestApi.UnitTests
         public void GetLastProcesseFileName_Ok()
         {
             // Arrange
-            var firestoreService = new FirestoreService(ConfigurationService);
+            var firestoreService = new FirestoreNetcoupeExtractorNetcoupeExtractorService(ConfigurationService);
 
             // Act
             var lastProcessedFileName = firestoreService.GetLastProcessedFile();

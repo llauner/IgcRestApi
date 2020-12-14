@@ -58,7 +58,7 @@ namespace IgcRestApi
             // ----- Register dependencies -----
             services.AddSingleton<IConfigurationService, ConfigurationService>();
             services.AddTransient<IDataConverter, AutoMapperDataConverter>();
-            services.AddTransient<IFirestoreService, FirestoreService>();
+            services.AddTransient<IFirestoreNetcoupeExtractorService, FirestoreNetcoupeExtractorNetcoupeExtractorService>();
             services.AddTransient<IFtpService, FtpService>();
             services.AddTransient<IStorageService, StorageService>();
             services.AddTransient<IIgcReaderService, IgcReaderService>();

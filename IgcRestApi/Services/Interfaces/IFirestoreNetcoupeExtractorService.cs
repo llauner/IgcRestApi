@@ -1,6 +1,6 @@
-﻿namespace IgcRestApi.Services
+﻿namespace IgcRestApi.Services.Interfaces
 {
-    public interface IFirestoreService
+    public interface IFirestoreNetcoupeExtractorService
     {
         /// <summary>
         /// GetLastProcessedFile

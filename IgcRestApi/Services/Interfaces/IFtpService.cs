@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace IgcRestApi.Services
+namespace IgcRestApi.Services.Interfaces
 {
     public interface IFtpService
     {

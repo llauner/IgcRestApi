@@ -1,14 +1,15 @@
 ﻿using Google.Cloud.Firestore;
+using IgcRestApi.Services.Interfaces;
 using System.Collections.Generic;
 
 namespace IgcRestApi.Services
 {
-    public class FirestoreService : IFirestoreService
+    public class FirestoreNetcoupeExtractorNetcoupeExtractorService : IFirestoreNetcoupeExtractorService
     {
         private readonly IConfigurationService _configuration;
         private readonly FirestoreDb _firestoreDb = null;
 
-        public FirestoreService(IConfigurationService configuration)
+        public FirestoreNetcoupeExtractorNetcoupeExtractorService(IConfigurationService configuration)
         {
             _configuration = configuration;
             _firestoreDb = FirestoreDb.Create("igcheatmap");

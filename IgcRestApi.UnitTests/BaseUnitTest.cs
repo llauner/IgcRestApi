@@ -1,4 +1,5 @@
 ﻿using IgcRestApi.Services;
+using IgcRestApi.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

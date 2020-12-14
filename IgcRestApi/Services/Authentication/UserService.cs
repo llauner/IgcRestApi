@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using IgcRestApi.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace IgcRestApi.Services.Authentication
 {

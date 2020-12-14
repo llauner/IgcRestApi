@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using IgcRestApi.Services.Interfaces;
+using Microsoft.Extensions.Configuration;
 using System;
 
 namespace IgcRestApi.Services
