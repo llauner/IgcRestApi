@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 namespace IgcRestApi.Controllers
 {
     [ApiController]
-    [Route("")]
     [Route("[controller]")]
     public class NetcoupeController : ControllerBase
     {
@@ -37,16 +36,6 @@ namespace IgcRestApi.Controllers
             _aggregatorService = aggregatorService;
             _storageService = storageService;
             _firestoreService = firestoreService;
-        }
-
-        /// <summary>
-        /// Ping
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("ping")]
-        public PingResponse Ping()
-        {
-            return new PingResponse("IgcRestApi");
         }
 
 

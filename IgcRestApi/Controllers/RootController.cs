@@ -5,13 +5,13 @@ using Microsoft.Extensions.Logging;
 namespace IgcRestApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [Route("")]
+    public class RootController : ControllerBase
     {
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<RootController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public RootController(ILogger<RootController> logger)
         {
             _logger = logger;
         }
@@ -19,7 +19,7 @@ namespace IgcRestApi.Controllers
         [HttpGet]
         public PingResponse Get()
         {
-            return new PingResponse("");
+            return new PingResponse("IgcRestApi");
         }
     }
 }

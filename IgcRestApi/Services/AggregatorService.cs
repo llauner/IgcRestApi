@@ -49,9 +49,13 @@ namespace IgcRestApi.Services
             var filesList = _ftpService.GetFileList();
 
             // Remove files already processed from list
-            filesList.RemoveAll(o =>
-                int.Parse(Path.GetFileNameWithoutExtension(o)) <=
-                int.Parse(Path.GetFileNameWithoutExtension(lastProcessedFilename)));
+            if (!string.IsNullOrEmpty(lastProcessedFilename))
+            {
+                filesList.RemoveAll(o =>
+                    int.Parse(Path.GetFileNameWithoutExtension(o)) <=
+                    int.Parse(Path.GetFileNameWithoutExtension(lastProcessedFilename)));
+            }
+
 
             // #### Process files ###
             var processedFilesList = new List<string>();
@@ -120,7 +124,7 @@ namespace IgcRestApi.Services
                 }
             }
             // --- Store last processed file progress
-            _firestoreService.UpdateLastProcessedFile(lastProcessedFileName);
+            _firestoreService.UpdateLastProcessedFile(lastProcessedFileName);       // Update last processed file. Null or Empty won't be taken into account
 
             return processedFilesList;
         }
