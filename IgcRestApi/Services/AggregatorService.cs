@@ -1,5 +1,6 @@
 ﻿using IgcRestApi.Dto;
 using IgcRestApi.Exceptions;
+using IgcRestApi.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Threading.Tasks;
-using IgcRestApi.Services.Interfaces;
 
 namespace IgcRestApi.Services
 {
@@ -16,7 +16,7 @@ namespace IgcRestApi.Services
         private readonly ILogger _logger;
         private readonly IConfigurationService _configuration;
         private readonly IFtpService _ftpService;
-        private readonly IFirestoreNetcoupeExtractorService _firestoreNetcoupeExtractorService;
+        private readonly IFirestoreService _firestoreService;
         private readonly IStorageService _storageService;
         private readonly IIgcReaderService _igcReaderService;
         private readonly INetcoupeService _netcoupeService;
@@ -24,7 +24,7 @@ namespace IgcRestApi.Services
         public AggregatorService(ILoggerFactory loggerFactory,
             IConfigurationService configuration,
             IFtpService ftpService,
-            IFirestoreNetcoupeExtractorService fireStoreNetcoupeExtractorService,
+            IFirestoreService fireStoreService,
             IStorageService storageService,
             IIgcReaderService igcReaderService,
             INetcoupeService netcoupeService)
@@ -32,7 +32,7 @@ namespace IgcRestApi.Services
             _logger = loggerFactory.CreateLogger<AggregatorService>();
             _configuration = configuration;
             _ftpService = ftpService;
-            _firestoreNetcoupeExtractorService = fireStoreNetcoupeExtractorService;
+            _firestoreService = fireStoreService;
             _storageService = storageService;
             _igcReaderService = igcReaderService;
             _netcoupeService = netcoupeService;
@@ -45,7 +45,7 @@ namespace IgcRestApi.Services
         /// </summary>
         public async Task<IList<string>> RunAsync(int? maxFilesTpProcess = null)
         {
-            var lastProcessedFilename = _firestoreNetcoupeExtractorService.GetLastProcessedFile();
+            var lastProcessedFilename = _firestoreService.GetLastProcessedFile();
             var filesList = _ftpService.GetFileList();
 
             // Remove files already processed from list
@@ -104,7 +104,7 @@ namespace IgcRestApi.Services
                 if (processedItemCount >= _configuration.StoreProgressInterval)
                 {
                     // Store progress in GCP Firestore so that we don't go over all files next time
-                    _firestoreNetcoupeExtractorService.UpdateLastProcessedFile(f);
+                    _firestoreService.UpdateLastProcessedFile(f);
                     processedItemCount = 0;
                 }
 
@@ -120,7 +120,7 @@ namespace IgcRestApi.Services
                 }
             }
             // --- Store last processed file progress
-            _firestoreNetcoupeExtractorService.UpdateLastProcessedFile(lastProcessedFileName);
+            _firestoreService.UpdateLastProcessedFile(lastProcessedFileName);
 
             return processedFilesList;
         }

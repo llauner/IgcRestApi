@@ -17,6 +17,10 @@ namespace IgcRestApi.Services
         public string FirestorFieldLastProcessedFile => GetSetting("firestorFieldLastProcessedFile", "lastProcessedFile");
         public int StoreProgressInterval => GetSetting("StoreProgressInterval", 10);
 
+        public string FirestoreCollectionNameTracemapProgress => GetSetting("FirestoreCollectionNameTracemapProgress", "tracemapProgress");
+        public string FirestoreDocumentNameTracemapProgress => GetSetting("FirestoreDocumentNameTracemapProgress", $"{DateTime.Now.Year}_dailyCumulativeTrackBuilder");
+        public string FirestoreFieldNameTracemapProgress => GetSetting("FirestoreFieldNameTracemapProgress", "processedDays");
+
         // ########## Storage Bucket ##########
         public string StorageBucketName => GetSetting("StorageBucketName", "netcoupe-igc-" + DateTime.Now.Year);
 

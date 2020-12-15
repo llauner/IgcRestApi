@@ -16,7 +16,7 @@ namespace IgcRestApi.UnitTests
         public void GetLastProcesseFileName_Ok()
         {
             // Arrange
-            var firestoreService = new FirestoreNetcoupeExtractorNetcoupeExtractorService(ConfigurationService);
+            var firestoreService = new FirestoreService(ConfigurationService);
 
             // Act
             var lastProcessedFileName = firestoreService.GetLastProcessedFile();
@@ -25,6 +25,23 @@ namespace IgcRestApi.UnitTests
             Check.That(lastProcessedFileName).IsNotEmpty();
             Check.That(lastProcessedFileName).IsNotNull();
         }
+
+        [Test]
+        public void GetTracemapProcessedFilesList_ok()
+        {
+            // Arrange
+            var firestoreService = new FirestoreService(ConfigurationService);
+
+            // Act
+            var processedFilesList = firestoreService.GetCumulativeTrackBuilderProcessedDays();
+
+            // Assert
+            Check.That(processedFilesList).IsNotNull();
+            Check.That(processedFilesList).Not.IsEmpty();
+
+        }
+
+
 
     }
 }

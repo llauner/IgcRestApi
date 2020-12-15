@@ -5,6 +5,7 @@ using IgcRestApi.Dto;
 using IgcRestApi.Extensions;
 using IgcRestApi.Services;
 using IgcRestApi.Services.Authentication;
+using IgcRestApi.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +14,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using IgcRestApi.Services.Interfaces;
 
 namespace IgcRestApi
 {
@@ -58,7 +58,7 @@ namespace IgcRestApi
             // ----- Register dependencies -----
             services.AddSingleton<IConfigurationService, ConfigurationService>();
             services.AddTransient<IDataConverter, AutoMapperDataConverter>();
-            services.AddTransient<IFirestoreNetcoupeExtractorService, FirestoreNetcoupeExtractorNetcoupeExtractorService>();
+            services.AddTransient<IFirestoreService, FirestoreService>();
             services.AddTransient<IFtpService, FtpService>();
             services.AddTransient<IStorageService, StorageService>();
             services.AddTransient<IIgcReaderService, IgcReaderService>();

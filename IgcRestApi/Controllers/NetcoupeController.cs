@@ -21,19 +21,22 @@ namespace IgcRestApi.Controllers
         private readonly IDataConverter _dataConverter;
         private readonly IAggregatorService _aggregatorService;
         private readonly IStorageService _storageService;
+        private readonly IFirestoreService _firestoreService;
 
 
         public NetcoupeController(ILogger<NetcoupeController> logger,
                                 IConfigurationService configuration,
                                 IDataConverter dataConverter,
                                 IAggregatorService aggregatorService,
-                                IStorageService storageService)
+                                IStorageService storageService,
+                                IFirestoreService firestoreService)
         {
             _logger = logger;
             _configuration = configuration;
             _dataConverter = dataConverter;
             _aggregatorService = aggregatorService;
             _storageService = storageService;
+            _firestoreService = firestoreService;
         }
 
         /// <summary>
@@ -62,7 +65,7 @@ namespace IgcRestApi.Controllers
             return new PingResponse(msg);
         }
 
-
+        #region Flights
         /// <summary>
         /// GetNetcoupeFlightsFromFtp
         /// </summary>
@@ -99,6 +102,16 @@ namespace IgcRestApi.Controllers
             var igcFlightModel = _dataConverter.Convert<IgcFlightModel>(igcFlightDto);
             return Ok(new ApiResponseModel(HttpStatusCode.OK, igcFlightModel));
         }
+        #endregion
+
+        #region Cumulative Tracks
+        [HttpGet("tracks")]
+        public IActionResult GetCumulativeTrackProcessedDasy()
+        {
+            var tracksList = _firestoreService.GetCumulativeTrackBuilderProcessedDays();
+            return Ok(new ApiResponseModel(HttpStatusCode.OK, tracksList));
+        }
+        #endregion
 
 
     }

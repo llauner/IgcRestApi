@@ -1,20 +1,23 @@
 ﻿using Google.Cloud.Firestore;
 using IgcRestApi.Services.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IgcRestApi.Services
 {
-    public class FirestoreNetcoupeExtractorNetcoupeExtractorService : IFirestoreNetcoupeExtractorService
+    public class FirestoreService : IFirestoreService
     {
         private readonly IConfigurationService _configuration;
         private readonly FirestoreDb _firestoreDb = null;
 
-        public FirestoreNetcoupeExtractorNetcoupeExtractorService(IConfigurationService configuration)
+        public FirestoreService(IConfigurationService configuration)
         {
             _configuration = configuration;
             _firestoreDb = FirestoreDb.Create("igcheatmap");
         }
 
+
+        #region Netcoupe Extractor
         /// <summary>
         /// GetLastProcessedFile
         /// </summary>
@@ -54,9 +57,32 @@ namespace IgcRestApi.Services
             var docRef = igcRef.Document(_configuration.FirestoreDocumentName);
             return docRef;
         }
+        #endregion
 
+        #region Tracemap Progress
 
+        /// <summary>
+        /// GetCumulativeTrackBuilderProcessedDays
+        /// List of processed days with data (hash is not null)
+        /// </summary>
+        /// <returns>Sorted list of processed days</returns>
+        public List<string> GetCumulativeTrackBuilderProcessedDays()
+        {
+            var igcRef = _firestoreDb.Collection(_configuration.FirestoreCollectionNameTracemapProgress);
+            var docRef = igcRef.Document(_configuration.FirestoreDocumentNameTracemapProgress);
+            var docSnapshot = docRef.GetSnapshotAsync().Result;
 
+            var processedDaysDict = docSnapshot.GetValue<Dictionary<string, string>>(_configuration.FirestoreFieldNameTracemapProgress);
+
+            var listProcessedDays = processedDaysDict.Where(x => x.Value != null)
+                                                    .Select(x => x.Key)
+                                                    .ToList();
+
+            listProcessedDays = listProcessedDays.OrderBy(f => f.Length).ThenBy(f => f).ToList();
+            return listProcessedDays;
+        }
+
+        #endregion
 
     }
 }

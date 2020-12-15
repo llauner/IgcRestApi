@@ -12,6 +12,10 @@
         string FirestorFieldLastProcessedFile { get; }
         public int StoreProgressInterval { get; }
 
+        public string FirestoreCollectionNameTracemapProgress { get; }
+        public string FirestoreDocumentNameTracemapProgress { get; }
+        public string FirestoreFieldNameTracemapProgress { get; }
+
 
         string StorageBucketName { get; }
 

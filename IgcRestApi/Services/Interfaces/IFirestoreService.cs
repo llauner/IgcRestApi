@@ -1,6 +1,8 @@
-﻿namespace IgcRestApi.Services.Interfaces
+﻿using System.Collections.Generic;
+
+namespace IgcRestApi.Services.Interfaces
 {
-    public interface IFirestoreNetcoupeExtractorService
+    public interface IFirestoreService
     {
         /// <summary>
         /// GetLastProcessedFile
@@ -9,5 +11,7 @@
         string GetLastProcessedFile();
 
         void UpdateLastProcessedFile(string lastProcessedFilename);
+
+        public List<string> GetCumulativeTrackBuilderProcessedDays();
     }
 }
