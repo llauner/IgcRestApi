@@ -1,27 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\IgcRestApi.UnitTests.csproj": {}
+    "C:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\IgcRestApi.UnitTests.csproj": {}
   },
   "projects": {
-    "D:\\llauner\\src\\NetcoupeIgcExtractor\\DotIGC\\DotIGC\\DotIGC.csproj": {
+    "C:\\llauner\\src\\NetcoupeIgcExtractor\\DotIGC\\DotIGC\\DotIGC.csproj": {
       "restore": {
-        "projectUniqueName": "D:\\llauner\\src\\NetcoupeIgcExtractor\\DotIGC\\DotIGC\\DotIGC.csproj",
+        "projectUniqueName": "C:\\llauner\\src\\NetcoupeIgcExtractor\\DotIGC\\DotIGC\\DotIGC.csproj",
         "projectName": "DotIGC",
-        "projectPath": "D:\\llauner\\src\\NetcoupeIgcExtractor\\DotIGC\\DotIGC\\DotIGC.csproj"
+        "projectPath": "C:\\llauner\\src\\NetcoupeIgcExtractor\\DotIGC\\DotIGC\\DotIGC.csproj"
       },
       "frameworks": {
         "net45": {}
       }
     },
-    "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\IgcRestApi.UnitTests.csproj": {
+    "C:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\IgcRestApi.UnitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\IgcRestApi.UnitTests.csproj",
+        "projectUniqueName": "C:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\IgcRestApi.UnitTests.csproj",
         "projectName": "IgcRestApi.UnitTests",
-        "projectPath": "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\IgcRestApi.UnitTests.csproj",
+        "projectPath": "C:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\IgcRestApi.UnitTests.csproj",
         "packagesPath": "C:\\Users\\a790562\\.nuget\\packages\\",
-        "outputPath": "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\obj\\",
+        "outputPath": "C:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi.UnitTests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\a790562\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,8 +38,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\IgcRestApi.csproj": {
-                "projectPath": "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\IgcRestApi.csproj"
+              "C:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\IgcRestApi.csproj": {
+                "projectPath": "C:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\IgcRestApi.csproj"
               }
             }
           }
@@ -93,12 +93,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.10, 3.1.10]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -111,14 +105,14 @@
         }
       }
     },
-    "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\IgcRestApi.csproj": {
+    "C:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\IgcRestApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\IgcRestApi.csproj",
+        "projectUniqueName": "C:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\IgcRestApi.csproj",
         "projectName": "IgcRestApi",
-        "projectPath": "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\IgcRestApi.csproj",
+        "projectPath": "C:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\IgcRestApi.csproj",
         "packagesPath": "C:\\Users\\a790562\\.nuget\\packages\\",
-        "outputPath": "D:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\obj\\",
+        "outputPath": "C:\\llauner\\src\\NetcoupeIgcExtractor\\IgcRestApi\\IgcRestApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\a790562\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -135,8 +129,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\llauner\\src\\NetcoupeIgcExtractor\\DotIGC\\DotIGC\\DotIGC.csproj": {
-                "projectPath": "D:\\llauner\\src\\NetcoupeIgcExtractor\\DotIGC\\DotIGC\\DotIGC.csproj"
+              "C:\\llauner\\src\\NetcoupeIgcExtractor\\DotIGC\\DotIGC\\DotIGC.csproj": {
+                "projectPath": "C:\\llauner\\src\\NetcoupeIgcExtractor\\DotIGC\\DotIGC\\DotIGC.csproj"
               }
             }
           }
@@ -198,16 +192,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.10, 3.1.10]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[3.1.10, 3.1.10]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"

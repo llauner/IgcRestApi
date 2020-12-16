@@ -6,3 +6,6 @@ IgcRestApi.UnitTests/obj/
 IgcRestApi/appsettings.json
 Aggregator/bin/
 Aggregator/obj/
+IgcRestApi/IgcRestApi.csproj.user
+IgcRestApi.sln.DotSettings.user
+*.log
