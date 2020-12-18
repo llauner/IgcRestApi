@@ -6,6 +6,7 @@ using IgcRestApi.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -94,11 +95,30 @@ namespace IgcRestApi.Controllers
         #endregion
 
         #region Cumulative Tracks
+        /// <summary>
+        /// GetDailyCumulativeTracksProcessedDays
+        /// Get the available processed days for the daily cumulative tracks.
+        /// Information is retrieved from a Firestore DB on GCP
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("tracks")]
-        public IActionResult GetCumulativeTrackProcessedDasy()
+        public IActionResult GetDailyCumulativeTracksProcessedDays()
         {
             var tracksList = _firestoreService.GetCumulativeTrackBuilderProcessedDays();
             return Ok(new ApiResponseModel(HttpStatusCode.OK, tracksList));
+        }
+
+        /// <summary>
+        /// GetDailyCumulativeTracksStatistics
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("tracks/statistics")]
+        public IActionResult GetDailyCumulativeTracksStatistics()
+        {
+            var statisticsDto = _firestoreService.GetCumulativeTrackBuilderStatistics();
+            var statisticsModel = _dataConverter.Convert<List<CumulativeTracksStatModel>>(statisticsDto);
+
+            return Ok(new ApiResponseModel(HttpStatusCode.OK, statisticsModel));
         }
         #endregion
 

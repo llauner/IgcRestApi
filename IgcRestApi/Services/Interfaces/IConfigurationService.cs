@@ -15,6 +15,7 @@
         public string FirestoreCollectionNameTracemapProgress { get; }
         public string FirestoreDocumentNameTracemapProgress { get; }
         public string FirestoreFieldNameTracemapProgress { get; }
+        public string FirestoreFieldNameStatistics { get; }
 
 
         string StorageBucketName { get; }

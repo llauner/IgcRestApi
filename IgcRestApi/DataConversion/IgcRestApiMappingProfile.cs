@@ -34,6 +34,9 @@ namespace IgcRestApi.DataConversion
             // Dto -> Model
             CreateMap<IgcFlightDto, IgcFlightModel>()
                 .ReverseMap();
+
+            CreateMap<CumulativeTracksStatDto, CumulativeTracksStatModel>()
+                .ReverseMap();
         }
 
 

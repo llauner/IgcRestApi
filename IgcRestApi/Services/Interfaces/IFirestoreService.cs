@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using IgcRestApi.Dto;
+using System.Collections.Generic;
 
 namespace IgcRestApi.Services.Interfaces
 {
@@ -13,5 +14,6 @@ namespace IgcRestApi.Services.Interfaces
         void UpdateLastProcessedFile(string lastProcessedFilename);
 
         public List<string> GetCumulativeTrackBuilderProcessedDays();
+        public List<CumulativeTracksStatDto> GetCumulativeTrackBuilderStatistics();
     }
 }

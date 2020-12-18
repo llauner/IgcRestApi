@@ -1,4 +1,5 @@
 ﻿using Google.Cloud.Firestore;
+using IgcRestApi.Dto;
 using IgcRestApi.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,6 +85,20 @@ namespace IgcRestApi.Services
 
             listProcessedDays = listProcessedDays.OrderBy(f => f.Length).ThenBy(f => f).ToList();
             return listProcessedDays;
+        }
+
+        public List<CumulativeTracksStatDto> GetCumulativeTrackBuilderStatistics()
+        {
+            var igcRef = _firestoreDb.Collection(_configuration.FirestoreCollectionNameTracemapProgress);
+            var docRef = igcRef.Document(_configuration.FirestoreDocumentNameTracemapProgress);
+            var docSnapshot = docRef.GetSnapshotAsync().Result;
+
+            var statisticsDic = docSnapshot.GetValue<Dictionary<string, int>>(_configuration.FirestoreFieldNameStatistics);
+            var listStatistics = statisticsDic.Select(e => new CumulativeTracksStatDto(e.Key, e.Value)).ToList();
+
+
+            listStatistics = listStatistics.OrderBy(f => f.Date.Length).ThenBy(f => f.Date).ToList();
+            return listStatistics;
         }
 
         #endregion
