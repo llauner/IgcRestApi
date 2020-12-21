@@ -14,7 +14,13 @@
 
         public string FirestoreCollectionNameTracemapProgress { get; }
         public string FirestoreDocumentNameTracemapProgress { get; }
-        public string FirestoreFieldNameTracemapProgress { get; }
+
+
+        public string FirestoreCollectionNameHeatmapProgress { get; }
+        public string FirestoreDocumentNameHeatmapProgress { get; }
+
+
+        public string FirestoreFieldNameProgress { get; }
         public string FirestoreFieldNameStatistics { get; }
 
 

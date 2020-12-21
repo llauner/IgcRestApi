@@ -15,5 +15,8 @@ namespace IgcRestApi.Services.Interfaces
 
         public List<string> GetCumulativeTrackBuilderProcessedDays();
         public List<CumulativeTracksStatDto> GetCumulativeTrackBuilderStatistics();
+
+
+        public List<string> GetHeatmapBuilderProcessedDays();
     }
 }

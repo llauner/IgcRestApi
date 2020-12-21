@@ -19,7 +19,13 @@ namespace IgcRestApi.Services
 
         public string FirestoreCollectionNameTracemapProgress => GetSetting("FirestoreCollectionNameTracemapProgress", "tracemapProgress");
         public string FirestoreDocumentNameTracemapProgress => GetSetting("FirestoreDocumentNameTracemapProgress", $"{DateTime.Now.Year}_dailyCumulativeTrackBuilder");
-        public string FirestoreFieldNameTracemapProgress => GetSetting("FirestoreFieldNameTracemapProgress", "processedDays");
+
+        public string FirestoreCollectionNameHeatmapProgress => GetSetting("FirestoreCollectionNameHeatmapProgress", "heatmapProgress");
+        public string FirestoreDocumentNameHeatmapProgress => GetSetting("FirestoreDocumentNameHeatmapProgress", $"{DateTime.Now.Year}_heatmapBuilder");
+
+
+
+        public string FirestoreFieldNameProgress => GetSetting("FirestoreFieldNameProgress", "processedDays");
         public string FirestoreFieldNameStatistics => GetSetting("FirestoreFieldNameTracemapProgress", "statistics");
 
         // ########## Storage Bucket ##########

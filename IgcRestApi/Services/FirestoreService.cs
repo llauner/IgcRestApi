@@ -73,18 +73,7 @@ namespace IgcRestApi.Services
         /// <returns>Sorted list of processed days</returns>
         public List<string> GetCumulativeTrackBuilderProcessedDays()
         {
-            var igcRef = _firestoreDb.Collection(_configuration.FirestoreCollectionNameTracemapProgress);
-            var docRef = igcRef.Document(_configuration.FirestoreDocumentNameTracemapProgress);
-            var docSnapshot = docRef.GetSnapshotAsync().Result;
-
-            var processedDaysDict = docSnapshot.GetValue<Dictionary<string, string>>(_configuration.FirestoreFieldNameTracemapProgress);
-
-            var listProcessedDays = processedDaysDict.Where(x => x.Value != null)
-                                                    .Select(x => x.Key)
-                                                    .ToList();
-
-            listProcessedDays = listProcessedDays.OrderBy(f => f.Length).ThenBy(f => f).ToList();
-            return listProcessedDays;
+            return GetProcessedDays(_configuration.FirestoreCollectionNameTracemapProgress, _configuration.FirestoreDocumentNameTracemapProgress);
         }
 
         public List<CumulativeTracksStatDto> GetCumulativeTrackBuilderStatistics()
@@ -102,6 +91,40 @@ namespace IgcRestApi.Services
         }
 
         #endregion
+
+        #region Heatmap
+        /// <summary>
+        /// GetHeatmapBuilderProcessedDays
+        /// List of processed days with data (hash is not null)
+        /// </summary>
+        /// <returns>Sorted list of processed days</returns>
+        public List<string> GetHeatmapBuilderProcessedDays()
+        {
+            return GetProcessedDays(_configuration.FirestoreCollectionNameHeatmapProgress, _configuration.FirestoreDocumentNameHeatmapProgress);
+        }
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="progressCollectionName"></param>
+        /// <param name="documentName"></param>
+        /// <returns></returns>
+        private List<string> GetProcessedDays(string progressCollectionName, string documentName)
+        {
+            var igcRef = _firestoreDb.Collection(progressCollectionName);
+            var docRef = igcRef.Document(documentName);
+            var docSnapshot = docRef.GetSnapshotAsync().Result;
+
+            var processedDaysDict = docSnapshot.GetValue<Dictionary<string, string>>(_configuration.FirestoreFieldNameProgress);
+
+            var listProcessedDays = processedDaysDict.Where(x => x.Value != null)
+                                                    .Select(x => x.Key)
+                                                    .ToList();
+
+            listProcessedDays = listProcessedDays.OrderBy(f => f.Length).ThenBy(f => f).ToList();
+            return listProcessedDays;
+        }
 
     }
 }
