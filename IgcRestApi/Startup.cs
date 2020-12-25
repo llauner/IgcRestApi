@@ -34,7 +34,7 @@ namespace IgcRestApi
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("*");
+                        builder.WithOrigins("*.volavoile.net");
                     });
             });
 
