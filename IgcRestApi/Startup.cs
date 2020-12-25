@@ -34,7 +34,10 @@ namespace IgcRestApi
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("*.volavoile.net");
+                        builder.WithOrigins("http://tracemap.volavoile.net", 
+                                            "https://tracemap.volavoile.net",
+                                            "http://heatmap.volavoile.net",
+                                            "https://heatmap.volavoile.net");
                     });
             });
 
