@@ -1,4 +1,5 @@
 ﻿using IgcRestApi.Dto;
+using IgcRestApi.Filters;
 using IgcRestApi.Models;
 using IgcRestApi.Services.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -14,6 +15,7 @@ namespace IgcRestApi.Controllers
 {
 
     [ApiController]
+    [ApiKey]
     [Route("[controller]")]
     public class LoginController : ControllerBase
     {

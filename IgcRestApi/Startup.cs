@@ -37,7 +37,9 @@ namespace IgcRestApi
                         builder.WithOrigins("http://tracemap.volavoile.net", 
                                             "https://tracemap.volavoile.net",
                                             "http://heatmap.volavoile.net",
-                                            "https://heatmap.volavoile.net");
+                                            "https://heatmap.volavoile.net",
+                                            "http://localhost:51363",
+                                            "https://localhost:44355");
                     });
             });
 
@@ -77,6 +79,9 @@ namespace IgcRestApi
             services.AddTransient<IAggregatorService, AggregatorService>();
             services.AddTransient<INetcoupeService, NetcoupeService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ISecretService, SecretService>();
+            services.AddSingleton<IApiKeyService, ApiKeyService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

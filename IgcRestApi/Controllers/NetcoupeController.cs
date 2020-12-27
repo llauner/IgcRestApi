@@ -61,6 +61,7 @@ namespace IgcRestApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [ApiKey]
         public async Task<IActionResult> GetNetcoupeFlightsFromFtpAsync([FromQuery(Name = "limit")] int? limit)
         {
             var processedFilesList = await _aggregatorService.RunAsync(limit);
@@ -86,6 +87,7 @@ namespace IgcRestApi.Controllers
         /// DeleteFlightAsync
         /// </summary>
         [HttpDelete("flights/{flightNumber}")]
+        [ApiKey]
         public async Task<IActionResult> DeleteFlightAsync(int flightNumber)
         {
             var igcFlightDto = await _aggregatorService.DeleteFlightAsync(flightNumber);
@@ -102,6 +104,7 @@ namespace IgcRestApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("tracks")]
+        [ApiKey]
         public IActionResult GetDailyCumulativeTracksProcessedDays()
         {
             var tracksList = _firestoreService.GetCumulativeTrackBuilderProcessedDays();
@@ -113,6 +116,7 @@ namespace IgcRestApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("tracks/statistics")]
+        [ApiKey]
         public IActionResult GetDailyCumulativeTracksStatistics()
         {
             var statisticsDto = _firestoreService.GetCumulativeTrackBuilderStatistics();

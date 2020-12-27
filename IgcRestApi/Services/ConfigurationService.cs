@@ -11,6 +11,11 @@ namespace IgcRestApi.Services
         public string FtpNetcoupeIgcUsername => _configuration?["FtpNetcoupeIgcUsername"];
         public string FtpNetcoupeIgcPassword => _configuration?["FtpNetcoupeIgcPassword"];
 
+        // ########## GCP ##########
+        public string GcpProjectId => GetSetting("GcpProjectId", "igcheatmap");
+        public string GcpSecretKeyIgcRestApiInternalApiKey => GetSetting("GcpSecretKeyIgcRestApiInternalApiKey", "igcRestApi-internal-apiKey");
+        public string GcpSecretKeyIgcRestApiPubliclApiKey => GetSetting("GcpSecretKeyIgcRestApiPubliclApiKey", "igcRestApi-public-apiKey");
+
         // ########## Firestore ##########
         public string FirestoreCollectionName => GetSetting("firestoreCollectionName", "igc");
         public string FirestoreDocumentName => GetSetting("firestoreDocumentName", "NetcoupeIgcExtractor");

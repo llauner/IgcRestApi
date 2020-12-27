@@ -1,4 +1,5 @@
 ﻿using IgcRestApi.DataConversion;
+using IgcRestApi.Filters;
 using IgcRestApi.Models;
 using IgcRestApi.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ namespace IgcRestApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [ApiKey]
     public class HeatmapController : ControllerBase
     {
         private readonly ILogger<NetcoupeController> _logger;

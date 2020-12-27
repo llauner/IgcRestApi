@@ -6,6 +6,9 @@
         string FtpNetcoupeIgcUsername { get; }
         string FtpNetcoupeIgcPassword { get; }
 
+        string GcpProjectId { get; }
+        string GcpSecretKeyIgcRestApiInternalApiKey { get; }
+        string GcpSecretKeyIgcRestApiPubliclApiKey { get; }
 
         string FirestoreCollectionName { get; }
         string FirestoreDocumentName { get; }
