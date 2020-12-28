@@ -14,9 +14,8 @@ namespace IgcRestApi.Dto
         /// <summary>
         /// Deserialize a string into an object with standard settings
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="jsonString"></param>
-        /// <returns></returns>
+        /// <returns>T</returns>
         public static T Deserialize(string jsonString)
         {
             try

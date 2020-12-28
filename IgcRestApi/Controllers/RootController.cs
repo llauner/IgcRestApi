@@ -16,6 +16,12 @@ namespace IgcRestApi.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Ping
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// </remarks>
         [HttpGet]
         public PingResponse Get()
         {

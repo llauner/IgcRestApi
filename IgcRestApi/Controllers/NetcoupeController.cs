@@ -4,6 +4,7 @@ using IgcRestApi.Filters;
 using IgcRestApi.Models;
 using IgcRestApi.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -41,11 +42,15 @@ namespace IgcRestApi.Controllers
 
         #region Flights
         /// <summary>
-        /// GetNetcoupeFlightsFromFtp
+        /// Retrieves, sort and store Netcoupe flights from FTP into GCP bucket
         /// </summary>
         /// <returns></returns>
+        /// <remarks>
+        /// Authorization: apiKey
+        /// </remarks>
         [HttpPost]
         [ApiKey]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiResponseModel))]
         public async Task<IActionResult> GetNetcoupeFlightsFromFtpAsync([FromQuery(Name = "limit")] int? limit)
         {
             var processedFilesList = await _aggregatorService.RunAsync(limit);
@@ -54,21 +59,29 @@ namespace IgcRestApi.Controllers
         }
 
         /// <summary>
-        /// DeleteFlightAsync
+        /// Deletes a file from the GCP bucket storage
         /// </summary>
-        [HttpDelete("flights/{flightNumber}")]
+        /// <param name="flightId">The Netcoupe flightId</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Authorization: Bearer {{token}}
+        /// </remarks>
+        [HttpDelete("flights/{flightId}")]
         [Authorize]
-        public async Task<IActionResult> DeleteFlightAsync(int flightNumber)
+        public async Task<IActionResult> DeleteFlightAsync(int flightId)
         {
-            var igcFlightDto = await _aggregatorService.DeleteFlightAsync(flightNumber);
+            var igcFlightDto = await _aggregatorService.DeleteFlightAsync(flightId);
             var igcFlightModel = _dataConverter.Convert<IgcFlightModel>(igcFlightDto);
             return Ok(new ApiResponseModel(HttpStatusCode.OK, igcFlightModel));
         }
 
         /// <summary>
-        /// GetStoredNetcoupeFlightsList
+        /// Get list of files stored in the GCP bucket storage (for the current year)
         /// </summary>
         /// <returns></returns>
+        /// <remarks>
+        /// Authorization: Bearer {{token}}
+        /// </remarks>
         [HttpGet("flights")]
         [Authorize]
         public IActionResult GetStoredNetcoupeFlightsList()
@@ -80,11 +93,14 @@ namespace IgcRestApi.Controllers
 
         #region Cumulative Tracks
         /// <summary>
-        /// GetDailyCumulativeTracksProcessedDays
         /// Get the available processed days for the daily cumulative tracks.
-        /// Information is retrieved from a Firestore DB on GCP
+        /// Information is retrieved from a Firestore DB on GCP.
         /// </summary>
         /// <returns></returns>
+        /// <remarks>
+        /// Used by: tracemap.volavoile.net
+        /// Authorization: apiKey
+        /// </remarks>
         [HttpGet("tracks")]
         [ApiKey]
         public IActionResult GetDailyCumulativeTracksProcessedDays()
@@ -94,9 +110,13 @@ namespace IgcRestApi.Controllers
         }
 
         /// <summary>
-        /// GetDailyCumulativeTracksStatistics
+        /// Get flights statistics: number of flights per day
         /// </summary>
         /// <returns></returns>
+        /// <remarks>
+        /// Used by: tracemap.volavoile.net
+        /// Authorization: apiKey
+        /// </remarks>
         [HttpGet("tracks/statistics")]
         [ApiKey]
         public IActionResult GetDailyCumulativeTracksStatistics()

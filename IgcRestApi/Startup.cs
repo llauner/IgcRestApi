@@ -14,6 +14,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System;
+using System.Reflection;
+using System.IO;
+using Microsoft.OpenApi.Models;
 
 namespace IgcRestApi
 {
@@ -34,7 +38,7 @@ namespace IgcRestApi
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("http://tracemap.volavoile.net", 
+                        builder.WithOrigins("http://tracemap.volavoile.net",
                                             "https://tracemap.volavoile.net",
                                             "http://heatmap.volavoile.net",
                                             "https://heatmap.volavoile.net",
@@ -67,9 +71,53 @@ namespace IgcRestApi
                 };
             });
 
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen();
+            // --- Register the Swagger generator, defining 1 or more Swagger documents ---
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "IGC REST API",
+                    Description = "REST API to interact with Netcoupe IGC files",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Ludovic Launer"
+                    }
+                });
 
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+
+                // --- Add security requirements ---
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Scheme = "bearer",
+                    Description = "Please insert JWT token into field"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
+                });
+
+            });
+
+            // --- Automapper
             services.AddAutoMapper(typeof(Startup).Assembly);  // Registering and Initializing AutoMapper
 
             // ----- Register dependencies -----

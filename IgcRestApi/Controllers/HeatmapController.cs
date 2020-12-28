@@ -32,9 +32,12 @@ namespace IgcRestApi.Controllers
 
 
         /// <summary>
-        /// GetHeatmapProcessedDays
         /// Get list of heatmap processed days. List is sorted by date (oldest first)
         /// </summary>
+        /// <remarks>
+        /// Used by: heatmap.volavoile.net<br/>
+        /// Requires: apiKey
+        /// </remarks>
         /// <returns></returns>
         [HttpGet("days")]
         public IActionResult GetHeatmapProcessedDays()

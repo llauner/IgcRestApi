@@ -1,8 +1,8 @@
 ﻿using IgcRestApi.Dto;
-using IgcRestApi.Filters;
 using IgcRestApi.Models;
 using IgcRestApi.Services.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -30,12 +30,16 @@ namespace IgcRestApi.Controllers
         }
 
         /// <summary>
-        /// JWT login
+        /// JWT token login
         /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
         /// <param name="requestModel"></param>
-        /// <returns></returns>
+        /// <returns>LoginResultModel</returns>
         [AllowAnonymous]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginResultModel))]
         public ActionResult Login([FromBody] LoginRequestModel requestModel)
         {
             if (!ModelState.IsValid)
@@ -75,6 +79,10 @@ namespace IgcRestApi.Controllers
         /// Ping with Jwt authentication required
         /// </summary>
         /// <returns></returns>
+        /// <remarks>Add token to request header.<br/>
+        /// Authorization : Bearer {{token}}
+        /// </remarks>
+        /// <response code="401">Unauthorized: Invalid token supplied</response>
         [HttpGet("ping")]
         [Authorize]
         public PingResponse PingJwt()

@@ -54,7 +54,6 @@ namespace IgcRestApi.Common.Helper
         /// <summary>
         /// Deserializes the specified json string.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="jsonString">The json string.</param>
         /// <param name="type">The type.</param>
         /// <returns></returns>
