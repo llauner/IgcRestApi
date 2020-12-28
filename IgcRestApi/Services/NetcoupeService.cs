@@ -6,7 +6,7 @@ namespace IgcRestApi.Services
 {
     public class NetcoupeService : INetcoupeService
     {
-        private static readonly string _netcoupeFileName = "Netcoupe{0}_{1}.igc";
+        private static readonly string _netcoupeFileName = "NetCoupe{0}_{1}.igc";
 
         /// <summary>
         /// GetIgcFileNameById

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using IgcRestApi.Dto;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace IgcRestApi.Services.Interfaces
         /// <param name="inStream"></param>
         void UploadToBucket(string objectName, Stream inStream);
 
-        Task DeleteFileAsync(string filename);
+        Task<IgcFlightDto> DeleteFileAsync(string filename);
         IList<string> GetFilenameList();
     }
 }

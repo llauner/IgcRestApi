@@ -15,7 +15,6 @@ namespace IgcRestApi.Controllers
 {
 
     [ApiController]
-    [ApiKey]
     [Route("[controller]")]
     public class LoginController : ControllerBase
     {
@@ -69,6 +68,22 @@ namespace IgcRestApi.Controllers
                 UserName = requestModel.UserName,
                 JwtToken = token
             });
+        }
+
+
+        /// <summary>
+        /// Ping with Jwt authentication required
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ping")]
+        [Authorize]
+        public PingResponse PingJwt()
+        {
+            var username = User.Identity.Name;
+            var msg = $"User is visiting /login/ping with jwt token authentication: username= {username}";
+            _logger.LogInformation(msg);
+
+            return new PingResponse(msg);
         }
     }
 }

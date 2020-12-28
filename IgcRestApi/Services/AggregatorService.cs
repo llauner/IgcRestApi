@@ -137,25 +137,19 @@ namespace IgcRestApi.Services
         public async Task<IgcFlightDto> DeleteFlightAsync(int flightNumber)
         {
             var filename = _netcoupeService.GetIgcFileNameById(flightNumber);
+            IgcFlightDto flightDto = null;
 
             try
             {
-                await _storageService.DeleteFileAsync(filename);
+                flightDto = await _storageService.DeleteFileAsync(filename);
+                flightDto.Id = flightNumber;
             }
             catch (FileNotFoundException e)
             {
                 throw new CoreApiException(HttpStatusCode.NotFound, e.Message);
             }
 
-
-            var flightInfo = new IgcFlightDto()
-            {
-                Id = flightNumber,
-                Name = filename,
-                Status = FlightStatus.DELETED
-            };
-
-            return flightInfo;
+            return flightDto;
         }
 
 

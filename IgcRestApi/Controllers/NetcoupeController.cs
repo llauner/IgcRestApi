@@ -39,22 +39,6 @@ namespace IgcRestApi.Controllers
             _firestoreService = firestoreService;
         }
 
-
-        /// <summary>
-        /// Ping with Jwt authentication required
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("jwt")]
-        [Authorize]
-        public PingResponse PingJwt()
-        {
-            var username = User.Identity.Name;
-            var msg = $"User is visiting jwt auth with token: {username}";
-            _logger.LogInformation(msg);
-
-            return new PingResponse(msg);
-        }
-
         #region Flights
         /// <summary>
         /// GetNetcoupeFlightsFromFtp
@@ -69,30 +53,28 @@ namespace IgcRestApi.Controllers
             return Ok(new ApiResponseModel(HttpStatusCode.OK, processedFilesList));
         }
 
+        /// <summary>
+        /// DeleteFlightAsync
+        /// </summary>
+        [HttpDelete("flights/{flightNumber}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteFlightAsync(int flightNumber)
+        {
+            var igcFlightDto = await _aggregatorService.DeleteFlightAsync(flightNumber);
+            var igcFlightModel = _dataConverter.Convert<IgcFlightModel>(igcFlightDto);
+            return Ok(new ApiResponseModel(HttpStatusCode.OK, igcFlightModel));
+        }
 
         /// <summary>
         /// GetStoredNetcoupeFlightsList
         /// </summary>
         /// <returns></returns>
         [HttpGet("flights")]
-        [BasicAuth]
+        [Authorize]
         public IActionResult GetStoredNetcoupeFlightsList()
         {
             var fileList = _storageService.GetFilenameList();
             return Ok(new ApiResponseModel(HttpStatusCode.OK, fileList));
-        }
-
-
-        /// <summary>
-        /// DeleteFlightAsync
-        /// </summary>
-        [HttpDelete("flights/{flightNumber}")]
-        [ApiKey]
-        public async Task<IActionResult> DeleteFlightAsync(int flightNumber)
-        {
-            var igcFlightDto = await _aggregatorService.DeleteFlightAsync(flightNumber);
-            var igcFlightModel = _dataConverter.Convert<IgcFlightModel>(igcFlightDto);
-            return Ok(new ApiResponseModel(HttpStatusCode.OK, igcFlightModel));
         }
         #endregion
 

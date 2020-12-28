@@ -1,4 +1,5 @@
 ﻿using Google.Cloud.Storage.V1;
+using IgcRestApi.Dto;
 using IgcRestApi.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace IgcRestApi.Services
         /// DeleteFileAsync
         /// </summary>
         /// <param name="filename"></param>
-        public async Task DeleteFileAsync(string filename)
+        public async Task<IgcFlightDto> DeleteFileAsync(string filename)
         {
             var enumerable = _storageClient.ListObjects(_configuration.StorageBucketName);
             var list = enumerable.ToList();
@@ -51,6 +52,14 @@ namespace IgcRestApi.Services
             }
 
             await _storageClient.DeleteObjectAsync(_configuration.StorageBucketName, fileFullPath.Name);
+
+            var flightDto = new IgcFlightDto()
+            {
+                Name = fileFullPath.Name,
+                Status = FlightStatus.DELETED
+            };
+
+            return flightDto;
         }
 
 
