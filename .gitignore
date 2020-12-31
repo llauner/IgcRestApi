@@ -9,3 +9,5 @@ Aggregator/obj/
 IgcRestApi/IgcRestApi.csproj.user
 IgcRestApi.sln.DotSettings.user
 *.log
+TraceAggregator.Tests/bin/
+TraceAggregator.Tests/obj/
