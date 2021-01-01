@@ -24,9 +24,12 @@ namespace IgcRestApi.Services
 
         public string FirestoreCollectionNameTracemapProgress => GetSetting("FirestoreCollectionNameTracemapProgress", "tracemapProgress");
         public string FirestoreDocumentNameTracemapProgress => GetSetting("FirestoreDocumentNameTracemapProgress", $"{DateTime.Now.Year}_dailyCumulativeTrackBuilder");
+        public string GetFirestoreDocumentNameTracemapProgress(int targetYear)=>  $"{targetYear}_dailyCumulativeTrackBuilder";
+        
 
         public string FirestoreCollectionNameHeatmapProgress => GetSetting("FirestoreCollectionNameHeatmapProgress", "heatmapProgress");
         public string FirestoreDocumentNameHeatmapProgress => GetSetting("FirestoreDocumentNameHeatmapProgress", $"{DateTime.Now.Year}_heatmapBuilder");
+        public string GetFirestoreDocumentNameHeatmapProgress(int targetYear) => $"{targetYear}_heatmapBuilder";
 
 
 
@@ -40,6 +43,8 @@ namespace IgcRestApi.Services
         // ######### Default Credentials #########
         public string ApiDefaultLogin => GetSetting<string>("ApiDefaultLogin", null);
         public string ApiDefaultPassword => GetSetting<string>("ApiDefaultPassword", null);
+
+
 
 
         #region Configuration Service

@@ -40,12 +40,11 @@ namespace IgcRestApi.Controllers
         /// </remarks>
         /// <returns></returns>
         [HttpGet("days")]
-        public IActionResult GetHeatmapProcessedDays()
+        public IActionResult GetHeatmapProcessedDays([FromQuery(Name = "includePastYear")] bool includePastYear = true)
         {
-            var tracksList = _firestoreService.GetHeatmapBuilderProcessedDays();
+            var tracksList = _firestoreService.GetHeatmapBuilderProcessedDays(includePastYear);
             return Ok(new ApiResponseModel(HttpStatusCode.OK, tracksList));
         }
-
 
 
     }

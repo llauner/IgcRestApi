@@ -1,6 +1,7 @@
 ﻿using Google.Cloud.Firestore;
 using IgcRestApi.Dto;
 using IgcRestApi.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -71,9 +72,23 @@ namespace IgcRestApi.Services
         /// List of processed days with data (hash is not null)
         /// </summary>
         /// <returns>Sorted list of processed days</returns>
-        public List<string> GetCumulativeTrackBuilderProcessedDays()
+        public List<string> GetCumulativeTrackBuilderProcessedDays(bool includePastYear)
         {
-            return GetProcessedDays(_configuration.FirestoreCollectionNameTracemapProgress, _configuration.FirestoreDocumentNameTracemapProgress);
+            var processedDays = new List<string>();
+            var pastYearProcessedDays = new List<string>();
+
+            // Current year
+            var currentYearProcessedDays = GetProcessedDays(_configuration.FirestoreCollectionNameTracemapProgress, _configuration.FirestoreDocumentNameTracemapProgress);
+
+            if (includePastYear)
+            {
+                pastYearProcessedDays = GetProcessedDays(_configuration.FirestoreCollectionNameTracemapProgress, _configuration.GetFirestoreDocumentNameTracemapProgress(DateTime.Now.Year - 1));
+            }
+
+            processedDays.AddRange(pastYearProcessedDays);
+            processedDays.AddRange(currentYearProcessedDays);
+
+            return processedDays;
         }
 
         public List<CumulativeTracksStatDto> GetCumulativeTrackBuilderStatistics()
@@ -98,9 +113,23 @@ namespace IgcRestApi.Services
         /// List of processed days with data (hash is not null)
         /// </summary>
         /// <returns>Sorted list of processed days</returns>
-        public List<string> GetHeatmapBuilderProcessedDays()
+        public List<string> GetHeatmapBuilderProcessedDays(bool includePastYear)
         {
-            return GetProcessedDays(_configuration.FirestoreCollectionNameHeatmapProgress, _configuration.FirestoreDocumentNameHeatmapProgress);
+            var processedDays = new List<string>();
+            var pastYearProcessedDays = new List<string>();
+
+            // Current year
+            var currentYearProcessedDays = GetProcessedDays(_configuration.FirestoreCollectionNameHeatmapProgress, _configuration.FirestoreDocumentNameHeatmapProgress);
+
+            if (includePastYear)
+            {
+                pastYearProcessedDays = GetProcessedDays(_configuration.FirestoreCollectionNameHeatmapProgress, _configuration.GetFirestoreDocumentNameHeatmapProgress(DateTime.Now.Year - 1));
+            }
+
+            processedDays.AddRange(pastYearProcessedDays);
+            processedDays.AddRange(currentYearProcessedDays);
+
+            return processedDays;
         }
         #endregion
 

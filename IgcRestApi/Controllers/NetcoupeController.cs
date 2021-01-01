@@ -103,9 +103,9 @@ namespace IgcRestApi.Controllers
         /// </remarks>
         [HttpGet("tracks")]
         [ApiKey]
-        public IActionResult GetDailyCumulativeTracksProcessedDays()
+        public IActionResult GetDailyCumulativeTracksProcessedDays([FromQuery(Name = "includePastYear")] bool includePastYear=true)
         {
-            var tracksList = _firestoreService.GetCumulativeTrackBuilderProcessedDays();
+            var tracksList = _firestoreService.GetCumulativeTrackBuilderProcessedDays(includePastYear);
             return Ok(new ApiResponseModel(HttpStatusCode.OK, tracksList));
         }
 

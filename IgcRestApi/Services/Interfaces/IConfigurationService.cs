@@ -16,10 +16,14 @@
         public int StoreProgressInterval { get; }
 
         public string FirestoreCollectionNameTracemapProgress { get; }
+        public string GetFirestoreDocumentNameTracemapProgress(int targetYear) => $"{targetYear}_dailyCumulativeTrackBuilder";
+
         public string FirestoreDocumentNameTracemapProgress { get; }
 
 
         public string FirestoreCollectionNameHeatmapProgress { get; }
+        public string GetFirestoreDocumentNameHeatmapProgress(int targetYear) => $"{targetYear}_heatmapBuilder";
+
         public string FirestoreDocumentNameHeatmapProgress { get; }
 
 

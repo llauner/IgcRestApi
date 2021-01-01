@@ -13,10 +13,10 @@ namespace IgcRestApi.Services.Interfaces
 
         void UpdateLastProcessedFile(string lastProcessedFilename);
 
-        public List<string> GetCumulativeTrackBuilderProcessedDays();
+        public List<string> GetCumulativeTrackBuilderProcessedDays(bool includePastYear);
         public List<CumulativeTracksStatDto> GetCumulativeTrackBuilderStatistics();
 
 
-        public List<string> GetHeatmapBuilderProcessedDays();
+        public List<string> GetHeatmapBuilderProcessedDays(bool includePastYear);
     }
 }
